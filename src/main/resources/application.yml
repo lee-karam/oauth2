@@ -1,0 +1,35 @@
+server:
+  port: 8095
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springdb
+    username: root
+    password: 1234
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update  # DDL?? ??
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  # yaml/yml ?? - Thymeleaf ??
+  thymeleaf:
+    cache: false
+    check-template-location: true
+    #    prefix: classpath:/templates/
+    #    suffix: .html
+    enabled: true
+
+    #  application-oauth21.yml
+  profiles:
+    include: oauth2
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+

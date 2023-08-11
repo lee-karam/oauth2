@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>login</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+<div class="memberList">
+ <table style="width:600px;" border="1">
+   <thead>
+   <tr>
+     <th colspan="5"><!--                        myUserDetails.getMemberEntity().getEmail()-->
+       현재로그인 사용자: <span th:text="${myUserDetails.memberEntity.email}"></span>,
+       권한: <span th:text="${myUserDetails.memberEntity.role}"></span>
+     </th>
+   </tr>
+   <tr>
+     <th>id</th>
+<!--     <th>pw</th>-->
+     <th>email</th>
+     <th>role</th>
+     <th>creatTime</th>    
+     <th>보기</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr th:each="member : ${memberList}">
+     <td th:text="${member.id}"></td>
+<!--     <td th:text="${member.pw}"></td>-->
+     <td th:text="${member.email}"></td>
+     <td th:text="${member.role}"></td>
+     <td th:text="${member.createTime}"></td>
+     <td>
+       <a th:href="@{/member/detail/{id}(id=${member.id})}">보기</a> <!--   /id=member.id -->
+     </td>
+   </tr>
+   </tbody>
+ </table>
+</div>
+</body>
+</html>

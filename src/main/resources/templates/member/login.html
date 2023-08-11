@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>login</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+<div class="login">
+  <form th:action="@{/member/login}" method="post">
+    email : <input type="email" name="email" id="email"> <br>
+    pw : <input type="password" name="pw" id="pw"> <br>
+    <input type="submit" value="로그인">
+  </form>
+</div>
+<div class="sns">
+  <a th:href="@{/oauth2/authorization/google}">GOOGLE</a>
+  <!--  <a th:href="@{/oauth2/authorization/naver}">NAVER</a>-->
+</div>
+</body>
+</html>

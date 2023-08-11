@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>join</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+<div class="join">
+  <form th:action="@{/member/join}" method="post">
+    email : <input type="email" name="email" id="email"> <br>
+    pw : <input type="password" name="pw" id="pw"> <br>
+    <input type="submit" value="회원가입실행">
+  </form>
+</div>
+</body>
+</html>

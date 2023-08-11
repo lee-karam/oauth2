@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<div class="header" th:fragment="headerFragment">
+  <a th:href="@{/}">HOME</a>
+
+  <th:block sec:authorize="isAnonymous()">
+    <a th:href="@{/member/join}">회원등록</a>
+    <a th:href="@{/member/login}">로그인</a>
+  </th:block>
+  <th:block sec:authorize="isAuthenticated()">
+    <a th:href="@{/member/logOut}">로그아웃</a>
+  </th:block>
+  <th:block sec:authorize="hasAnyRole('ADMIN')">
+      <a th:href="@{/member/memberList}">회원목록</a>
+  </th:block>
+  <th:block sec:authorize="hasAnyRole('ADMIN','MEMBER','SELLER')">
+    <a th:href="@{/member/detail/{id}(id=${#authentication.principal.memberEntity.id})}">로그인본인정보</a>
+  </th:block>
+  <th:block sec:authorize="hasAnyRole('SELLER','ADMIN')">
+      <a th:href="@{/shop}">쇼핑몰페이지</a>
+  </th:block>
+  <th:block sec:authorize="hasAnyRole('ADMIN')">
+      <a th:href="@{/admin}">관리자페이지</a>
+  </th:block>
+</div>
+</html>
