@@ -17,26 +17,27 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
 
-  private final MemberRepository memberRepository;
-  private final PasswordEncoder passwordEncoder;
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-  @Transactional
-  public void insertMember(MemberDto memberDto) {
-    String email = memberRepository.save(MemberEntity.builder()
-            .email(memberDto.getEmail())
-            .pw(passwordEncoder.encode(memberDto.getPw()))
-            .role(Role.MEMBER)
-            .build()).getEmail();
-    memberRepository.findByEmail(email).orElseThrow(() -> {
-      return new IllegalArgumentException("이메일이 존재 하지 않습니다.");
-    });
-  }
+    @Transactional
+    public void insertMember(MemberDto memberDto) {
+        String email = memberRepository.save(MemberEntity.builder()
+                .email(memberDto.getEmail())
+                .pw(passwordEncoder.encode(memberDto.getPw()))
+                .nickName(memberDto.getNickName())
+                .role(Role.MEMBER)
+                .build()).getEmail();
+        memberRepository.findByEmail(email).orElseThrow(() -> {
+            return new IllegalArgumentException("이메일이 존재 하지 않습니다.");
+        });
+    }
 
-  public List<MemberDto> memberListdo() {
-    List<MemberDto> memberDtos = new ArrayList<>();
-    List<MemberEntity> memberEntities = memberRepository.findAll();
+    public List<MemberDto> memberListdo() {
+        List<MemberDto> memberDtos = new ArrayList<>();
+        List<MemberEntity> memberEntities = memberRepository.findAll();
 
-    for (MemberEntity memberEntity : memberEntities) {
+        for (MemberEntity memberEntity : memberEntities) {
 //      MemberDto memberDto = MemberDto.builder()
 //              .id(memberEntity.getId())
 //              .pw(memberEntity.getPw())
@@ -44,46 +45,50 @@ public class MemberService {
 //              .createTime(memberEntity.getCreateTime())
 //              .email(memberEntity.getEmail())
 //              .build();
-      memberDtos.add(MemberDto.builder()
-              .id(memberEntity.getId())
-              .pw(memberEntity.getPw())
-              .role(memberEntity.getRole())
-              .createTime(memberEntity.getCreateTime())
-              .email(memberEntity.getEmail())
-              .build());
+            memberDtos.add(MemberDto.builder()
+                    .id(memberEntity.getId())
+                    .pw(memberEntity.getPw())
+                    .role(memberEntity.getRole())
+                    .nickName(memberEntity.getNickName())
+                    .createTime(memberEntity.getCreateTime())
+                    .email(memberEntity.getEmail())
+                    .build());
+        }
+        return memberDtos;
     }
-    return memberDtos;
-  }
 
-  public MemberDto detailMember(Long id)  {
+    public MemberDto detailMember(Long id) {
 
 //  MemberEntity memberEntity1=memberRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-  MemberEntity memberEntity=memberRepository.findById(id).orElseThrow(()->{
-    return new IllegalArgumentException("이메일이 존재 하지 않습니다");
-  });
+        MemberEntity memberEntity = memberRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("이메일이 존재 하지 않습니다");
+        });
 
-  return MemberDto.builder()
-          .id(memberEntity.getId())
-          .email(memberEntity.getEmail())
-          .role(memberEntity.getRole())
-          .createTime(memberEntity.getCreateTime())
-          .updateTime(memberEntity.getUpdateTime())
-          .build();
-  }
+        return MemberDto.builder()
+                .id(memberEntity.getId())
+                .email(memberEntity.getEmail())
+                .role(memberEntity.getRole())
+                .nickName(memberEntity.getNickName())
+                .createTime(memberEntity.getCreateTime())
+                .updateTime(memberEntity.getUpdateTime())
+                .build();
+    }
 
-  public MemberDto updateMember(MemberDto memberDto) {
+    public MemberDto updateMember(MemberDto memberDto) {
 
-   MemberEntity memberEntity= memberRepository.save(MemberEntity.builder()
-            .id(memberDto.id)
-            .email(memberDto.getEmail())
-            .role(memberDto.getRole())
-            .build());
-   MemberEntity memberEntity1
-           = memberRepository.findByEmail(memberEntity.getEmail()).orElseThrow(IllegalArgumentException::new);
-   return MemberDto.builder()
-           .id(memberEntity1.getId())
-           .email(memberEntity1.getEmail())
-           .role(memberEntity1.getRole())
-           .build();
-  }
+        MemberEntity memberEntity = memberRepository.save(MemberEntity.builder()
+                .id(memberDto.id)
+                .email(memberDto.getEmail())
+                .role(memberDto.getRole())
+                .nickName(memberDto.getNickName())
+                .build());
+        MemberEntity memberEntity1
+                = memberRepository.findByEmail(memberEntity.getEmail()).orElseThrow(IllegalArgumentException::new);
+        return MemberDto.builder()
+                .id(memberEntity1.getId())
+                .email(memberEntity1.getEmail())
+                .nickName(memberDto.getNickName())
+                .role(memberEntity1.getRole())
+                .build();
+    }
 }

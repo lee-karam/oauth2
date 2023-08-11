@@ -24,6 +24,10 @@ public class MemberEntity extends BaseEntity {
   @Column(nullable = false)
   private String pw;
 
+
+  private String nickName;
+
+
   @Enumerated(EnumType.STRING)
   private Role role;
 

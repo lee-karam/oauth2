@@ -22,6 +22,8 @@ public class MemberDto {
 
   private String pw;
 
+  private String nickName;
+
   private Role role;
 
   private LocalDateTime createTime;
