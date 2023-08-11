@@ -31,5 +31,16 @@ public class MemberDto {
   private LocalDateTime updateTime;
 
 
+  public static MemberDto toMemberDto(MemberEntity memberEntity){
+    MemberDto memberDto=new MemberDto();
+    memberDto.setId(memberEntity.getId());
+    memberDto.setPw(memberEntity.getPw());
+    memberDto.setRole(memberEntity.getRole());
+    memberDto.setCreateTime(memberEntity.getCreateTime());
+    memberDto.setUpdateTime(memberEntity.getUpdateTime());
+    return memberDto;
+  }
+
+
 
 }
